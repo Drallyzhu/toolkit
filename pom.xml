@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.drally</groupId>
     <artifactId>toolkit</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>toolkit</name>
     <description>工具集成项目</description>
-    <properties>
-        <java.version>1.8</java.version>
-    </properties>
+    <packaging>pom</packaging>
+
+
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -17,77 +19,31 @@
         <relativePath/>
     </parent>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>1.8</java.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <mysql.version>5.1.47</mysql.version>
+        <lombok.version>1.16.22</lombok.version>
+        <druid.version>1.1.10</druid.version>
+        <commons-pool.version>2.5.0</commons-pool.version>
+        <logstash.version>5.1</logstash.version>
+        <logback-redis.version>1.1.5</logback-redis.version>
+        <apollo.version>1.1.0</apollo.version>
+        <oauth2.version>2.0.1.RELEASE</oauth2.version>
+        <zuul.version>1.4.6.RELEASE</zuul.version>
+        <eureka.version>1.4.6.RELEASE</eureka.version>
+
+    </properties>
+
 
     <modules>
         <module>toolkit-eureka</module>
+        <module>toolkit-gateway</module>
+        <module>toolkit-common</module>
     </modules>
 
-
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-        </dependency>
-
-        <!--注册中心eureka-->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-eureka-server</artifactId>
-            <version>1.4.6.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-eureka</artifactId>
-            <version>1.4.6.RELEASE</version>
-        </dependency>
-
-        <!--数据库Mysql-->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>${mysql.version}</version>
-        </dependency>
-
-        <!--MyBatis加强版-->
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>3.0.7.1</version>
-        </dependency>
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-generator</artifactId>
-            <version>3.0.7.1</version>
-        </dependency>
-
-        <!--ELK引用logstash-->
-        <dependency>
-            <groupId>net.logstash.logback</groupId>
-            <artifactId>logstash-logback-encoder</artifactId>
-            <version>5.1</version>
-        </dependency>
-        <dependency>
-            <groupId>com.cwbase</groupId>
-            <artifactId>logback-redis-appender</artifactId>
-            <version>1.1.5</version>
-        </dependency>
-
-        <!--apollo配置中心-->
-        <dependency>
-            <groupId>com.ctrip.framework.apollo</groupId>
-            <artifactId>apollo-client</artifactId>
-            <version>1.1.0</version>
-        </dependency>
-
-        <!--lombok-->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.16.22</version>
-        </dependency>
-
-
-    </dependencies>
 
     <build>
         <finalName>toolkit</finalName>
