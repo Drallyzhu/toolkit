@@ -23,8 +23,8 @@ import java.util.Enumeration;
 /**
  * @ClassName LogFilter
  * @Description TODO
- * @Author gm
- * @Date 2019/3/12 17:16
+ * @Author Drally
+ * @Date 2019/3/22 16:32
  **/
 @Slf4j
 @Component
