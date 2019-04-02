@@ -3,7 +3,7 @@
 <configuration>
     <include resource="org/springframework/boot/logging/logback/base.xml"/>
     <property name="PATTERN" value="%-12(%d{yyyy-MM-dd HH:mm:ss.SSS}) |-%-5level [%thread] %c [%L] -| %msg%n"/>
-    <property name="FILE_PATH" value="D:/home/tomcat/star-zuul/logs"/>
+    <property name="FILE_PATH" value="D:/home/tomcat/toolkit-gateway/logs"/>
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${FILE_PATH}/star-zuul.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">

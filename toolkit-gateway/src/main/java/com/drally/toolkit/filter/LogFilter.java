@@ -2,7 +2,7 @@ package com.drally.toolkit.filter;
 
 import cn.hutool.core.date.DateUtil;
 import com.drally.toolkit.domain.gateway.log.LogModel;
-import com.drally.toolkit.util.IPUtil;
+import com.drally.toolkit.common.util.IPUtil;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;

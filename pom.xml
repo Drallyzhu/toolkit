@@ -32,9 +32,11 @@
         <logback-redis.version>1.1.5</logback-redis.version>
         <apollo.version>1.1.0</apollo.version>
         <oauth2.version>2.0.1.RELEASE</oauth2.version>
+        <security.version>2.0.1.RELEASE</security.version>
         <zuul.version>1.4.6.RELEASE</zuul.version>
         <eureka.version>1.4.6.RELEASE</eureka.version>
-
+        <eureka-server.version>1.4.6.RELEASE</eureka-server.version>
+        <spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
     </properties>
 
 
@@ -42,21 +44,25 @@
         <module>toolkit-eureka</module>
         <module>toolkit-gateway</module>
         <module>toolkit-common</module>
+        <module>toolkit-tkauth</module>
     </modules>
 
 
-    <build>
-        <finalName>toolkit</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <executable>true</executable>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
+
+
 
 
 </project>
