@@ -4,10 +4,8 @@ import com.drally.toolkit.tkauth.service.AppClientDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.http.HttpMethod;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -26,7 +24,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
+import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 
 /**
  * Oauth2 authorization server with internal client.
@@ -42,7 +40,7 @@ import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 @EnableAuthorizationServer
 @EnableResourceServer
 @EnableWebSecurity
-@PropertySource({ "classpath:persistence.properties" })
+//@PropertySource({ "classpath:persistence.properties" })
 public class OAuthASApplication extends WebSecurityConfigurerAdapter implements AuthorizationServerConfigurer, ResourceServerConfigurer {
 
 	/**********************************************************************************************************
@@ -55,8 +53,11 @@ public class OAuthASApplication extends WebSecurityConfigurerAdapter implements 
 	@Autowired
 	private AppClientDetailService appClientDetailService;
 
-    @Autowired
-    private Environment env;
+//    @Autowired
+//    private Environment env;
+
+	@Autowired
+	private RedisConnectionFactory connectionFactory;
 
 
 	/**
@@ -131,20 +132,12 @@ public class OAuthASApplication extends WebSecurityConfigurerAdapter implements 
                 .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST);
 	}
 
-    @Bean
-    public DriverManagerDataSource dataSource() {
-        final DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(env.getProperty("jdbc.driverClassName"));
-        dataSource.setUrl(env.getProperty("jdbc.url"));
-        dataSource.setUsername(env.getProperty("jdbc.user"));
-        dataSource.setPassword(env.getProperty("jdbc.pass"));
-        return dataSource;
-    }
 
     @Bean
     public TokenStore tokenStore() {
-        return new JdbcTokenStore(dataSource());
-    }
+		return new RedisTokenStore(connectionFactory);
+
+	}
 
 	/**********************************************************************************************************
 	 * {@link ResourceServerConfigurer} = security configuration.

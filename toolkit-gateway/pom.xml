@@ -74,12 +74,8 @@
         </dependency>
 
 
-        <!--认证中心-->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-oauth2</artifactId>
-            <version>${oauth2.version}</version>
-        </dependency>
+
+
 
         <!--阿波罗注册中心-->
         <dependency>
@@ -107,12 +103,31 @@
             <version>${mysql.version}</version>
             <scope>runtime</scope>
         </dependency>
-        <!--jdbc-->
+
+
+        <!--认证中心-->
+        <!--<dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-security</artifactId>
+            <exclusions>
+            &lt;!&ndash;旧版本 redis操作有问题&ndash;&gt;
+            <exclusion>
+            <artifactId>spring-security-oauth2</artifactId>
+            <groupId>org.springframework.security.oauth</groupId>
+            </exclusion>
+            </exclusions>
+        </dependency>-->
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-jdbc</artifactId>
-            <version>5.0.10.RELEASE</version>
+            <groupId>org.springframework.security.oauth</groupId>
+            <artifactId>spring-security-oauth2</artifactId>
+            <version>2.3.3.RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+
+
 
         <dependency>
             <groupId>org.springframework.boot</groupId>

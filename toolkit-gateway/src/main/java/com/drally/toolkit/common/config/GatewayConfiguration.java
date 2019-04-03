@@ -4,19 +4,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
+import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 
 @Configuration
-@PropertySource({ "classpath:persistence.properties" })
+//@PropertySource({ "classpath:persistence.properties" })
 @EnableResourceServer
 public class GatewayConfiguration extends ResourceServerConfigurerAdapter {
 
@@ -32,8 +30,11 @@ public class GatewayConfiguration extends ResourceServerConfigurerAdapter {
             "/webjars/**"
     };
 
+//    @Autowired
+//    private Environment env;
+
     @Autowired
-    private Environment env;
+    private RedisConnectionFactory connectionFactory;
 
     @Override
     public void configure(final HttpSecurity http) throws Exception {
@@ -57,19 +58,19 @@ public class GatewayConfiguration extends ResourceServerConfigurerAdapter {
         return defaultTokenServices;
     }
 
-    @Bean
-    public DriverManagerDataSource dataSource(){
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(env.getProperty("jdbc.driverClassName"));
-        dataSource.setUrl(env.getProperty("jdbc.url"));
-        dataSource.setUsername(env.getProperty("jdbc.user"));
-        dataSource.setPassword(env.getProperty("jdbc.pass"));
-        return dataSource;
-    }
+//    @Bean
+//    public DriverManagerDataSource dataSource(){
+//        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+//        dataSource.setDriverClassName(env.getProperty("jdbc.driverClassName"));
+//        dataSource.setUrl(env.getProperty("jdbc.url"));
+//        dataSource.setUsername(env.getProperty("jdbc.user"));
+//        dataSource.setPassword(env.getProperty("jdbc.pass"));
+//        return dataSource;
+//    }
 
     @Bean
     public TokenStore tokenStore() {
-        return new JdbcTokenStore(dataSource());
+        return new RedisTokenStore(connectionFactory);
     }
 
 }

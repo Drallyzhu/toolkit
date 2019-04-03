@@ -5,12 +5,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+
+//feign客户端
 @EnableFeignClients
+//注册到注册中心
 @EnableDiscoveryClient
-@SpringBootApplication
-@EnableGlobalMethodSecurity(prePostEnabled = true)
 @ComponentScan({"com.drally.toolkit.common","com.drally.toolkit.user"})
+@SpringBootApplication
 public class ToolkitUserApplication {
 
     public static void main(String[] args) {
